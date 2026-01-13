@@ -2,7 +2,7 @@ import User from "../model/user.model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { AuthTokens } from "./auth.types";
-import {RegisterInput,LoginInput} from "./auth.schema"
+import { RegisterInput, LoginInput } from "./auth.schema"
 import { generateToken } from "../lib/jwt";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -35,6 +35,32 @@ export class AuthService {
             role: "user"
         });
 
-        return {accessToken};
+        return { accessToken };
+    }
+
+    static async login(data: LoginInput): Promise<AuthTokens> {
+        const { email, password } = data;
+
+        const user = await User.findOne({
+            email
+        });
+
+        if (!user) {
+            throw new Error("Invalid email or password");
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error("Invalid email or password");
+        }
+
+        const accessToken = await generateToken({
+            userId: user._id.toString(),
+            username: user.username,
+            email: user.email,
+            role: user.role,
+        })
+
+        return { accessToken };
     }
 }
