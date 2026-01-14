@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
+import { env } from "./env";
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/realtime-chat";
+const MONGODB_URI = env.MONGODB_URI;
 
 let isConnected = false;
 

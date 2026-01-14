@@ -1,7 +1,8 @@
+import "./config/env"
 import connectDB from "./config/db";
 import app from "./server"
-const PORT = process.env.PORT || 3000;
-
+import { env } from "./config/env";
+const PORT = env.PORT;
 (async () => {
     await connectDB();
 
