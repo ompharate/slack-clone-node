@@ -1,5 +1,4 @@
-import User from "../model/user.model";
-import jwt from "jsonwebtoken";
+import UserAuth from "../model/auth.model";
 import bcrypt from "bcrypt";
 import { AuthTokens } from "./auth.types";
 import { RegisterInput, LoginInput } from "./auth.schema"
@@ -10,14 +9,14 @@ export class AuthService {
     static async register(data: RegisterInput): Promise<AuthTokens> {
         const { email, password } = data;
 
-        const existingUser = await User.findOne({ email })
+        const existingUser = await UserAuth.findOne({ email })
         if (existingUser) {
             throw new Error("User already exists with this email");
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await User.create({
+        const newUser = await UserAuth.create({
             ...data,
             password: hashedPassword
         })
@@ -35,7 +34,7 @@ export class AuthService {
     static async login(data: LoginInput): Promise<AuthTokens> {
         const { email, password } = data;
 
-        const user = await User.findOne({
+        const user = await UserAuth.findOne({
             email
         });
 
@@ -53,7 +52,7 @@ export class AuthService {
             username: user.username,
             email: user.email,
             role: user.role,
-        })
+        });
 
         return { accessToken };
     }
