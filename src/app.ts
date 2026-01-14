@@ -6,9 +6,9 @@ const PORT = env.PORT;
 (async () => {
     await connectDB();
 
-    // app.get("/api/health", (req, res) => {
-    //     res.status(200).json({ status: 'OK', message: 'Server is healthy' });
-    // });
+    app.get("/api/health", (req, res) => {
+        res.status(200).json({ status: 'OK', message: 'Server is healthy' });
+    });
 
     app.use("/api", require("./auth/auth.routes").default);
     app.use("/api/user", require("./user/user.routes").default);
