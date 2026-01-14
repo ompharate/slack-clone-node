@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { ZodSchema } from "zod";
 
 export const validate = (schema: ZodSchema) => (req:Request,res:Response,next:NextFunction) => {
-    return (req: Request, res: Response, next: NextFunction) => {
         try {
             const result =  schema.safeParse({
                 body: req.body,
@@ -16,5 +15,4 @@ export const validate = (schema: ZodSchema) => (req:Request,res:Response,next:Ne
         } catch (error) {
             return res.status(400).json({ error: error });
         }
-    }
 }

@@ -5,12 +5,6 @@ import { AuthTokens } from "./auth.types";
 import { RegisterInput, LoginInput } from "./auth.schema"
 import { generateToken } from "../lib/jwt";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-const JWT_EXPIRES_IN = "15m";
-
-if (!JWT_SECRET) {
-    throw new Error("JWT_SECRET is not defined in environment variables");
-}
 
 export class AuthService {
     static async register(data: RegisterInput): Promise<AuthTokens> {

@@ -6,7 +6,7 @@ let isConnected = false;
 
 export async function connectDB() {
   
-    if (!isConnected) {
+    if (isConnected) {
         return;
     }
 
