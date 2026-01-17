@@ -1,0 +1,34 @@
+import { PERMISSIONS } from "./permission.constants";
+import { Role } from "./permission.types"
+
+export const ROLE_PERMISSIONS: Record<Role, string[]> = {
+    OWNER: [
+        PERMISSIONS.WORKSPACE_MANAGE,
+        PERMISSIONS.WORKSPACE_VIEW,
+        PERMISSIONS.MEMBER_REMOVE,
+        PERMISSIONS.CHANNEL_CREATE,
+        PERMISSIONS.CHANNEL_DELETE,
+    ],
+
+    ADMIN: [
+        PERMISSIONS.WORKSPACE_VIEW,
+        PERMISSIONS.MEMBER_REMOVE,
+        PERMISSIONS.CHANNEL_CREATE,
+        PERMISSIONS.CHANNEL_DELETE,
+    ],
+
+    MEMBER: [
+        PERMISSIONS.WORKSPACE_VIEW,
+        PERMISSIONS.CHANNEL_CREATE,
+        PERMISSIONS.MESSAGE_SEND,
+    ],
+
+    GUEST: [
+        PERMISSIONS.WORKSPACE_VIEW,
+        PERMISSIONS.MESSAGE_SEND,
+    ],
+    
+    BOT: [
+        PERMISSIONS.MESSAGE_SEND,
+    ]
+} as const;
