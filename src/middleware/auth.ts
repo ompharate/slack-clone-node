@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import { JwtPayload } from "../types/jwt.types";
 import { verifyToken } from "../lib/jwt";
 
-type AuthToken = Request & { user?: JwtPayload };
+type AuthRequest = Request & { user?: JwtPayload };
 
-const authMiddleware = async (req:AuthToken, res:Response, next: Function) => {
+export type { AuthRequest };
+
+const authMiddleware = async (req:AuthRequest, res:Response, next: Function) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).json({ error: "Unauthorized" });
