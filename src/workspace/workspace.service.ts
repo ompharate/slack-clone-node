@@ -9,4 +9,9 @@ export class WorkspaceService {
         })
         return workspace.toObject();
     }
+
+    static async getWorkspaceById(id: string): Promise<IWorkspace | null> {
+        const workspace = await Workspace.findById(id).lean();
+        return workspace;
+    }
 }
