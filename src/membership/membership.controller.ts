@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { MembershipService } from "./membership.serivce";
+import { MembershipService } from "./membership.service";
 
 export async function addMembershipController(req:Request, res:Response) {
     try {

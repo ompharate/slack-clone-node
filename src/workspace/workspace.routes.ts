@@ -1,6 +1,5 @@
 import { Router, RequestHandler } from "express";
 import { createWorkspaceHandler, getWorkspaceHandler } from "./workspace.controller";
-import { get } from "node:http";
 import authMiddleware from "../middleware/auth";
 import { resolveWorkspace } from "../middleware/workspaceResolver";
 import { authorize } from "../middleware/authorize";
@@ -10,10 +9,9 @@ const router = Router();
 
 router.post("/create",
     authMiddleware,
-    authorize(PERMISSIONS.WORKSPACE_MANAGE),
     createWorkspaceHandler);
-router.get("/:id",
+router.get("/:workspaceId",
     authMiddleware,
     resolveWorkspace as RequestHandler,
-    authorize(PERMISSIONS.WORKSPACE_VIEW),
+    authorize(PERMISSIONS.WORKSPACE_VIEW) as RequestHandler,
     getWorkspaceHandler);
