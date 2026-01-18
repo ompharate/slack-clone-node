@@ -2,12 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { MembershipService } from "../membership/membership.service";
 import { IMembership } from "../membership/membership.types";
 
-type MembershipRequest = Request & { membership: IMembership };
 
-export type { MembershipRequest };
-
-export const resolveMembership = async (req:MembershipRequest,res:Response,next:NextFunction) => {
-    const membership = await MembershipService.getMemberships({ user: req.params.userId, workspace: req.params.workspaceId }) as IMembership[];
+export const resolveMembership = async (req:Request,res:Response,next:NextFunction) => {
+    const membership = await MembershipService.getMemberships({ user: req.user?.userId, workspace: req.params.workspaceId }) as IMembership[];
     if (membership.length === 0) {
         return res.status(404).json({ error: "Membership not found" });
     }

@@ -1,12 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { JwtPayload } from "../types/jwt.types";
 import { verifyToken } from "../lib/jwt";
 
-type AuthRequest = Request & { user?: JwtPayload };
 
-export type { AuthRequest };
-
-const authMiddleware = async (req:AuthRequest, res:Response, next: NextFunction) => {
+const authMiddleware = async (req:Request, res:Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).json({ error: "Unauthorized" });
