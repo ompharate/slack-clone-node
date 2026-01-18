@@ -25,7 +25,7 @@ export class AuthService {
             userId: newUser._id.toString(),
             username: newUser.username,
             email: newUser.email,
-            role: "user"
+            role: "human"
         });
 
         return { accessToken };

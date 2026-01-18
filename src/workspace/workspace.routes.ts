@@ -15,3 +15,5 @@ router.get("/:workspaceId",
     resolveWorkspace as RequestHandler,
     authorize(PERMISSIONS.WORKSPACE_VIEW) as RequestHandler,
     getWorkspaceHandler);
+
+export default router;
