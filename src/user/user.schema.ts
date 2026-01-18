@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-export const completeProfile = z.object({
+export const completeProfileSchema = z.object({
     body: z.object({
         userId: z.string().length(24),
         fullName: z.string().min(3).max(50).optional(),
@@ -9,4 +9,4 @@ export const completeProfile = z.object({
     })
 })
 
-export type CompleteProfileInput = z.infer<typeof completeProfile>["body"];
+export type CompleteProfileInput = z.infer<typeof completeProfileSchema>["body"];

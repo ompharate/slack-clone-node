@@ -9,4 +9,9 @@ export class UserService {
         })
         return user.toObject();
     }
+
+    static async getUserById(userId: string): Promise<IUserProfile | null> {
+        const user = await User.findOne({ userId });
+        return user ? user.toObject() : null;
+    }
 }

@@ -1,13 +1,25 @@
 import { Request, Response } from "express";
 import { WorkspaceService } from "./workspace.service"
+import { MembershipService } from "../membership/membership.service";
 
 export const createWorkspaceHandler = async (req: Request, res: Response) => {
     try {
         const workspace = await WorkspaceService.createWorkspace(req.body);
+     
+        const membership = await MembershipService.addMembership({
+            user: req.body.createdBy,
+            workspace: workspace._id,
+            role: "OWNER",
+            status: "ACTIVE"
+        } as any)
+
         return res.status(201).json({
             status: "success",
-            data: workspace
+            data: workspace,
+            membership: membership
         })
+
+
     } catch (error) {
         return res.status(500).json({
             status: "error",
