@@ -18,7 +18,7 @@ export const createWorkspaceHandler = async (req: Request, res: Response) => {
 
 export const getWorkspaceHandler = async (req: Request, res: Response) => {
     try {
-        const workspace = await WorkspaceService.getWorkspaceById(req.params.id as string);
+        const workspace = await WorkspaceService.getWorkspaceById(req.params.workspaceId as string);
         if (!workspace) {
             return res.status(404).json({
                 status: "error",
